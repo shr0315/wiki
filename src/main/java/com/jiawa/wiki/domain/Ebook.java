@@ -1,6 +1,9 @@
 package com.jiawa.wiki.domain;
 
-public class Ebook {
+import java.io.Serializable;
+
+public class Ebook implements Serializable {
+
     private Long id;
 
     private String name;

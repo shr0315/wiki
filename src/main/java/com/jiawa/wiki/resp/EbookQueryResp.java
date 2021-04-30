@@ -1,6 +1,9 @@
 package com.jiawa.wiki.resp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class EbookQueryResp {
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
 
     private String name;

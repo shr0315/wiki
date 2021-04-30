@@ -155,6 +155,8 @@
        */
       const handleQuery = (params: any) => {
         loading.value = true;
+        // 如果不清空现有数据，则编辑保存重新加载数据后，再点编辑，则列表显示的还是编辑前的数据
+        ebooks.value = [];
         axios.get("/ebook/list",{
           params:{
             page: params.page,
@@ -197,7 +199,7 @@
           const data = response.data;  //data = commonResp
           if(data.success){
             modalVisible.value = false;
-            modalLoading.value = false;
+            // modalLoading.value = false;
 
             //重新加载列表
             handleQuery({
@@ -230,8 +232,8 @@
        * 删除
        * @param id
        */
-      const handleDelete = (id:number) =>{
-        axios.delete("/ebook/delete/"+id).then((response) => {
+      const handleDelete = (id: number) =>{
+        axios.delete("/ebook/delete/" + id).then((response) => {
           const data = response.data;  //data = commonResp
           if(data.success){
             //重新加载列表
@@ -239,6 +241,8 @@
               page:pagination.value.current,
               size:pagination.value.pageSize,
             });
+          }else {
+            message.error(data.message);
           }
         });
       };
@@ -267,7 +271,7 @@
         ebook,
         modalVisible,
         modalLoading,
-        handleModalOk
+        handleModalOk,
       }
     }
   })
