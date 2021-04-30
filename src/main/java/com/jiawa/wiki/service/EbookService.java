@@ -31,13 +31,14 @@ public class EbookService {
         if(!ObjectUtils.isEmpty(req.getName())){
             criteria.andNameLike("%" + req.getName() + "%");
         }
-
+        //   页码  每页的条数  例如：第1页，10条内容
         PageHelper.startPage(req.getPage(),req.getSize());
+        // 紧跟着的第一个select方法会被分页
         List<Ebook> ebookList = ebookMapper.selectByExample(ebookExample);
 
         PageInfo<Ebook> pageInfo = new PageInfo<>(ebookList);
         LOG.info("总行数：{}",pageInfo.getTotal());
-        LOG.info("总页数：{}",pageInfo.getPages());
+        LOG.info("总页数：{}",pageInfo.getPages());  //前端计算总页数
 
         //List<EbookResp> respList = new ArrayList<>();
         //for (Ebook ebook : ebookList) {
